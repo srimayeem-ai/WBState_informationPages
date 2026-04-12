@@ -1,0 +1,40 @@
+import os
+import subprocess
+
+# GitHub repo details
+GITHUB_REPO = "https://github.com/srimayeem-ai/srimayeem-ai.github.io.git"
+LOCAL_REPO_DIR = "WBState_informationPages"
+HTML_FILE = "index.html"
+COMMIT_MESSAGE = "CrewAI agent update"
+
+def run_command(command, cwd=None):
+    result = subprocess.run(command, cwd=cwd, shell=True, capture_output=True, text=True)
+    if result.returncode != 0:
+        raise Exception(result.stderr)
+    return result.stdout
+
+def setup_repo():
+    if not os.path.exists(C:\Users\Lenovo\projects\WB_Dev_Page_Content):
+        run_command(f"git clone {WBState_informationPages} {C:\Users\Lenovo\projects\WB_Dev_Page_Content}")
+    else:
+        run_command("git pull origin main", cwd=C:\Users\Lenovo\projects\WB_Dev_Page_Content)
+
+def update_html(content):
+    file_path = os.path.join(C:\Users\Lenovo\projects\WB_Dev_Page_Content, HTML_FILE)
+    with open(file_path, "w", encoding="utf-8") as f:
+        f.write(content)
+
+def push_changes():
+    run_command("git add .", cwd=C:\Users\Lenovo\projects\WB_Dev_Page_Content)
+    run_command(f'git commit -m "{COMMIT_MESSAGE}"', cwd=LOCAL_REPO_DIR)
+    run_command("git push origin main", cwd=LOCAL_REPO_DIR)
+
+# CrewAI agent integration
+def deploy_ai_html(ai_html):
+    setup_repo()
+    update_html(ai_html)
+    push_changes()
+
+# Example usage: after CrewAI agent generates HTML
+ai_generated_html = "<html><body><h1>Hello from CrewAI!</h1></body></html>"
+deploy_ai_html(ai_generated_html)
